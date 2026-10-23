@@ -490,7 +490,7 @@
         footer {
             background-color: #111111;
             color: #ffffff;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem 1.5rem 1rem;
             margin-top: 4rem;
             border-top: 4px solid #b22222;
         }
@@ -501,7 +501,31 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1.5rem;
+        }
+
+        /* Footer Quick Links */
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.25rem;
+            width: 100%;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00ff66;
         }
 
         .footer-info {
@@ -550,6 +574,10 @@
             .map-iframe-container {
                 height: 300px;
             }
+
+            .footer-links {
+                gap: 0.85rem 1.25rem;
+            }
         }
     </style>
 </head>
@@ -563,7 +591,7 @@
     <header class="top-header-banner">
         <a href="index.html" class="header-brand-container">
             <div class="header-logo-slot">
-                <img src="images/logo.png" alt="Logo"
+                <img src="pictures/Gemini_Generated_Image_l0itjkl0itjkl0it.jpg" alt="Logo"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <span style="display:none; color:#00ff66; font-weight:bold; font-size:0.75rem;">SCH</span>
             </div>
@@ -587,7 +615,7 @@
 
         <div class="menu-logo-wrapper">
             <div class="menu-logo-slot">
-                <img src="images/logo.png" alt="Soon Children's Home Logo"
+                <img src="pictures/Gemini_Generated_Image_l0itjkl0itjkl0it.jpg" alt="Soon Children's Home Logo"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <span style="display:none; color:#111111; font-weight:bold; font-size:1.2rem;">SCH</span>
             </div>
@@ -597,12 +625,10 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
-            
-            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
-               <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+            <li><a href="proggrames and services.html">Programmes & Services</a></li>
+            <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="contact.html" class="active">Contact Us</a></li>
-            
         </ul>
     </aside>
 
@@ -672,7 +698,7 @@
                 </div>
             </div>
 
-
+            <!-- Inquiry Form -->
             <div class="contact-card highlight">
                 <h2>Send Us A Message</h2>
                 <form class="contact-form" id="inquiryForm">
@@ -735,25 +761,33 @@
             </div>
         </div>
 
-    </div>
-
-    <!-- Google Maps Embed Section -->
-    <section class="map-section">
-        <h2>Find Us On Google Maps</h2>
-        <div class="map-iframe-container">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.82352818645!2d36.9083818!3d-1.2252195!2m3!1f0!f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3fcfa168a7b9%3A0x6b19a3b6ddae018f!2sMwiki%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                title="Soon Children's Home Google Map Location">
-            </iframe>
-        </div>
-    </section>
+        <!-- Google Maps Embed Section -->
+        <section class="map-section">
+            <h2>Find Us On Google Maps</h2>
+            <div class="map-iframe-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.82352818645!2d36.9083818!3d-1.2252195!2m3!1f0!f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3fcfa168a7b9%3A0x6b19a3b6ddae018f!2sMwiki%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    title="Soon Children's Home Google Map Location">
+                </iframe>
+            </div>
+        </section>
 
     </div>
 
     <!-- Footer -->
     <footer>
         <div class="footer-container">
+            <!-- Footer Quick Navigation Links -->
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="proggrames and services.html">Programmes & Services</a></li>
+                <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
             <div class="footer-info">
                 <span><strong>Phone:</strong> +254 721 632 915</span>
                 <span>|</span>
