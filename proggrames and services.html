@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programmes & Services - Soon Children's Home</title>
+    <title>Get Involved & Donate - Soon Children's Home</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@
             padding-top: 70px; /* Space for fixed top header */
         }
 
-        /* --- Background Overlay --- */
+        /* --- Background Canvas Overlay --- */
         .bg-overlay {
             position: fixed;
             top: 0;
@@ -288,187 +288,267 @@
             margin: 0 auto;
         }
 
-        /* --- Content Block Cards --- */
-        .content-card {
+        /* --- Side-by-Side Main Grid --- */
+        .donate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .donate-card {
             background-color: #ffffff;
             border-radius: 14px;
             padding: 2rem;
-            margin-bottom: 2.5rem;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-            border-left: 6px solid #b22222;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #b22222;
         }
 
-        .content-card.highlight-card {
-            border-left-color: #00ff66;
+        .donate-card.highlight {
+            border-top-color: #00ff66;
         }
 
-        .content-card h2 {
+        .donate-card h2 {
             font-family: 'Quicksand', sans-serif;
             color: #b22222;
             font-size: 1.6rem;
             margin-bottom: 1.25rem;
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 0.5rem;
-        }
-
-        /* --- Facilities Grid --- */
-        .facilities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.25rem;
-            margin-top: 1rem;
-        }
-
-        .facility-item {
-            background-color: #f9f9f9;
-            border: 1px solid #e9e9e9;
-            border-radius: 10px;
-            padding: 1.25rem;
-            text-align: center;
-            transition: all 0.25s ease;
-        }
-
-        .facility-item:hover {
-            border-color: #00ff66;
-            background-color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .facility-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .facility-item span.title {
-            display: block;
-            font-weight: 700;
-            color: #111111;
-            font-size: 1rem;
-        }
-
-        /* --- Policy List & Steps Styles --- */
-        .policy-subgroup {
-            margin-bottom: 2rem;
-        }
-
-        .policy-subgroup h3 {
-            font-size: 1.25rem;
-            color: #111111;
-            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .policy-subgroup h3::before {
-            content: "";
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: #00ff66;
-            border-radius: 50%;
+        /* Method Cards */
+        .method-box {
+            background-color: #f9f9f9;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            transition: all 0.25s ease;
         }
 
-        .policy-list {
-            list-style: none;
-            padding-left: 0.5rem;
+        .method-box:hover {
+            border-color: #00ff66;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
-        .policy-list li {
-            margin-bottom: 0.85rem;
-            position: relative;
-            padding-left: 1.75rem;
-            color: #333333;
-            font-size: 0.95rem;
-        }
-
-        .policy-list li::before {
-            content: "✓";
-            color: #b22222;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        /* Structured 8-Step Process Grid */
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .step-box {
-            background-color: #f8f9fa;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
+        .method-header {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            transition: transform 0.2s ease;
+            margin-bottom: 0.75rem;
         }
 
-        .step-box:hover {
-            transform: translateY(-2px);
-            border-color: #b22222;
+        .method-icon {
+            font-size: 1.5rem;
         }
 
-        .step-num {
+        .method-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #111111;
+        }
+
+        .method-details p {
+            font-size: 0.93rem;
+            color: #444444;
+            margin-bottom: 0.35rem;
+        }
+
+        .method-details p strong {
+            color: #111111;
+        }
+
+        .highlight-badge {
             background-color: #111111;
             color: #00ff66;
-            font-family: 'Quicksand', sans-serif;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
             font-weight: 700;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Needs List */
+        .needs-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .need-item {
+            background-color: #f8f9fa;
+            border-left: 4px solid #b22222;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        .need-item.urgent {
+            border-left-color: #00ff66;
+            background-color: #f0fff5;
+        }
+
+        .need-item h3 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            color: #111111;
+            margin-bottom: 0.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .need-item p {
+            font-size: 0.9rem;
+            color: #555555;
+        }
+
+        .badge-tag {
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-urgent {
+            background-color: #b22222;
+            color: #ffffff;
+        }
+
+        .badge-ongoing {
+            background-color: #111111;
+            color: #00ff66;
+        }
+
+        /* --- Success Stories Section --- */
+        .stories-section {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stories-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stories-header h2 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            color: #b22222;
+            text-transform: uppercase;
+        }
+
+        .stories-header p {
+            color: #555555;
+            font-size: 1rem;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .story-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #00ff66;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-img-wrapper {
+            width: 100%;
+            height: 220px;
+            background-color: #111111;
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
         }
 
-        .step-text {
-            font-weight: 600;
-            color: #222222;
-            font-size: 0.92rem;
+        .story-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        /* --- Core Programmes Grid --- */
-        .programmes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+        .story-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #111111;
+            color: #00ff66;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .prog-card {
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            padding: 1.5rem;
-            border-top: 4px solid #b22222;
+        .story-content {
+            padding: 1.75rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        .prog-card h3 {
+        .story-title {
             font-family: 'Quicksand', sans-serif;
+            font-size: 1.35rem;
             color: #111111;
-            font-size: 1.2rem;
             margin-bottom: 0.5rem;
         }
 
-        .prog-card p {
-            font-size: 0.9rem;
+        .story-subtitle {
+            color: #b22222;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .story-quote {
+            color: #444444;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+            border-left: 3px solid #00ff66;
+            padding-left: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-desc {
             color: #555555;
+            font-size: 0.92rem;
+            line-height: 1.65;
         }
 
         /* --- Footer Styles --- */
         footer {
             background-color: #111111;
             color: #ffffff;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem 1.5rem 1rem;
             margin-top: 4rem;
             border-top: 4px solid #b22222;
         }
@@ -479,7 +559,31 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1.5rem;
+        }
+
+        /* Footer Quick Links */
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.25rem;
+            width: 100%;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00ff66;
         }
 
         .footer-info {
@@ -521,12 +625,13 @@
                 padding: 1.5rem 0.85rem;
             }
 
-            .content-card {
+            .donate-card,
+            .story-content {
                 padding: 1.25rem;
             }
 
-            .process-steps {
-                grid-template-columns: 1fr;
+            .footer-links {
+                gap: 0.85rem 1.25rem;
             }
         }
     </style>
@@ -541,7 +646,7 @@
     <header class="top-header-banner">
         <a href="index.html" class="header-brand-container">
             <div class="header-logo-slot">
-                <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img src="pictures/Gemini_Generated_Image_l0itjkl0itjkl0it.jpg" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <span style="display:none; color:#00ff66; font-weight:bold; font-size:0.75rem;">SCH</span>
             </div>
             <span class="header-title">Soon Children's Home</span>
@@ -564,7 +669,7 @@
         
         <div class="menu-logo-wrapper">
             <div class="menu-logo-slot">
-                <img src="images/logo.png" alt="Soon Children's Home Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img src="pictures/Gemini_Generated_Image_l0itjkl0itjkl0it.jpg" alt="Soon Children's Home Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <span style="display:none; color:#111111; font-weight:bold; font-size:1.2rem;">SCH</span>
             </div>
             <div class="menu-brand-name">SOON CHILDREN'S HOME</div>
@@ -573,12 +678,10 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
-            
-            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
-              <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+            <li><a href="proggrames and services.html">Programmes & Services</a></li>
+            <li><a href="get involved &donate.html" class="active">Get Involved & Donate</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="contact.html">Contact Us</a></li>
-            
         </ul>
     </aside>
 
@@ -586,148 +689,139 @@
     <div class="container">
 
         <section class="section-header">
-            <h1>Programmes, Services & Operations</h1>
-            <p>Comprehensive care, infrastructure facilities, and operational frameworks designed to rescue, protect, and empower children.</p>
+            <h1>Get Involved & Support Us</h1>
+            <p>Your generosity helps us provide food, shelter, education, and hope to vulnerable children in Mwiki, Kasarani.</p>
         </section>
 
-        <!-- Core Service Pillars Overview -->
-        <section class="content-card">
-            <h2>Core Pillars of Service</h2>
-            <div class="programmes-grid">
-                <div class="prog-card">
-                    <h3>Emergency Rescue & Protection</h3>
-                    <p>Providing immediate safe shelter, medical assistance, and protection for vulnerable children rescued from neglect or exploitation.</p>
-                </div>
-                <div class="prog-card">
-                    <h3>Education & Skills Training</h3>
-                    <p>Supporting pre-school learning and formal schooling to ensure every child builds a strong foundation for future self-reliance.</p>
-                </div>
-                <div class="prog-card">
-                    <h3>Spiritual & Character Building</h3>
-                    <p>Guiding children in Christian values, moral mentorship, and character development to foster responsible community leadership.</p>
-                </div>
-            </div>
-        </section>
+        <!-- Side-by-Side Grid: Ways to Give vs Immediate Needs -->
+        <div class="donate-grid">
+            
+            <!-- SECTION 1: Ways to Give -->
+            <div class="donate-card highlight">
+                <h2><span>🎁</span> Ways To Give</h2>
 
-        <!-- Facilities & Infrastructure Section -->
-        <section class="content-card highlight-card">
-            <h2>4. Facilities & Infrastructure</h2>
-            <p style="margin-bottom: 1.25rem; color: #444;">
-                The home is structured to accommodate the children and staff with complete daily-living facilities:
-            </p>
+                <!-- M-Pesa Option -->
+                <div class="method-box">
+                    <div class="method-header">
+                        <span class="method-icon">📱</span>
+                        <span class="method-title">M-Pesa Mobile Money</span>
+                    </div>
+                    <div class="method-details">
+                        <p><strong>Paybill / Till Number:</strong> <span class="highlight-badge">[Insert Paybill]</span></p>
+                        <p><strong>Account Name:</strong> Soon Children's Home</p>
+                        <p><strong>Phone Contact:</strong> +254 721 632 915</p>
+                    </div>
+                </div>
 
-            <div class="facilities-grid">
-                <div class="facility-item">
-                    <span class="facility-icon">🛏️</span>
-                    <span class="title">Dormitories</span>
+                <!-- Bank Transfer Option -->
+                <div class="method-box">
+                    <div class="method-header">
+                        <span class="method-icon">🏦</span>
+                        <span class="method-title">Direct Bank Transfer</span>
+                    </div>
+                    <div class="method-details">
+                        <p><strong>Bank Name:</strong> [Insert Bank Name, e.g. Equity Bank]</p>
+                        <p><strong>Account Name:</strong> Soon Children's Home CBO</p>
+                        <p><strong>Account Number:</strong> [Insert Account Number]</p>
+                        <p><strong>Branch:</strong> Kasarani / Mwiki Branch</p>
+                    </div>
                 </div>
-                <div class="facility-item">
-                    <span class="facility-icon">🚿</span>
-                    <span class="title">Washrooms & Toilets</span>
-                </div>
-                <div class="facility-item">
-                    <span class="facility-icon">🍽️</span>
-                    <span class="title">Kitchen & Dining Hall</span>
-                </div>
-                <div class="facility-item">
-                    <span class="facility-icon">✏️</span>
-                    <span class="title">Pre-school Classrooms</span>
-                </div>
-                <div class="facility-item">
-                    <span class="facility-icon">📚</span>
-                    <span class="title">Leisure Room & Library</span>
-                </div>
-                <div class="facility-item">
-                    <span class="facility-icon">💼</span>
-                    <span class="title">Office Space</span>
-                </div>
-                <div class="facility-item">
-                    <span class="facility-icon">⚽</span>
-                    <span class="title">Playing Ground</span>
-                </div>
-            </div>
-        </section>
 
-        <!-- Key Operational Policies & Frameworks Section -->
-        <section class="content-card">
-            <h2>5. Key Operational Policies & Frameworks</h2>
-
-            <!-- Policy A -->
-            <div class="policy-subgroup">
-                <h3>A. Behavior Management & Counseling Policy</h3>
-                <p style="margin-bottom: 1rem; color: #555;">
-                    Grounded in helping children grow in the fear of God through professional and empathetic counseling:
-                </p>
-
-                <ul class="policy-list">
-                    <li>
-                        <strong>Empathy & Active Listening:</strong> Greeting children warmly, listening actively without judgment, asking clarifying questions, and understanding their individual priority needs.
-                    </li>
-                    <li>
-                        <strong>Expectation Setting:</strong> Under-promising and over-performing, clear guidelines, and regular monitoring.
-                    </li>
-                </ul>
-
-                <h4 style="font-size: 1.05rem; color: #b22222; margin-top: 1.5rem; margin-bottom: 0.85rem; font-family: 'Quicksand', sans-serif;">
-                    Complaint & Conflict Resolution (Structured 8-Step Process):
-                </h4>
-
-                <div class="process-steps">
-                    <div class="step-box">
-                        <div class="step-num">1</div>
-                        <div class="step-text">Greet</div>
+                <!-- In-Kind Donations -->
+                <div class="method-box">
+                    <div class="method-header">
+                        <span class="method-icon">📦</span>
+                        <span class="method-title">In-Kind Supplies & Foodstuff</span>
                     </div>
-                    <div class="step-box">
-                        <div class="step-num">2</div>
-                        <div class="step-text">Listen</div>
-                    </div>
-                    <div class="step-box">
-                        <div class="step-num">3</div>
-                        <div class="step-text">Question</div>
-                    </div>
-                    <div class="step-box">
-                        <div class="step-num">4</div>
-                        <div class="step-text">Empathize</div>
-                    </div>
-                    <div class="step-box">
-                        <div class="step-num">5</div>
-                        <div class="step-text">Address the Issue</div>
-                    </div>
-                    <div class="step-box">
-                        <div class="step-num">6</div>
-                        <div class="step-text">Test Questions</div>
-                    </div>
-                    <div class="step-box">
-                        <div class="step-num">7</div>
-                        <div class="step-text">Offer Additional Help</div>
-                    </div>
-                    <div class="step-box">
-                        <div class="step-num">8</div>
-                        <div class="step-text">Follow Thoroughly</div>
+                    <div class="method-details">
+                        <p>Drop off foodstuff, books, clothes, or stationery directly at our home in Mwiki, Kasarani during visiting hours.</p>
                     </div>
                 </div>
             </div>
 
-            <hr style="border: none; border-top: 1px solid #eeeeee; margin: 2rem 0;">
+            <!-- SECTION 2: Immediate Needs of the Home -->
+            <div class="donate-card">
+                <h2><span>📋</span> Immediate Needs Of The Home</h2>
 
-            <!-- Policy B -->
-            <div class="policy-subgroup" style="margin-bottom: 0;">
-                <h3>B. Community-Based & Exit Strategy</h3>
-                <p style="margin-bottom: 1rem; color: #555;">
-                    The home prioritizes long-term community integration and child welfare:
-                </p>
+                <div class="needs-list">
+                    
+                    <div class="need-item urgent">
+                        <h3>Foodstuff & Daily Provisions <span class="badge-tag badge-urgent">High Priority</span></h3>
+                        <p>Maize flour, rice, beans, cooking oil, milk, and fresh vegetables for daily nutrition.</p>
+                    </div>
 
-                <ul class="policy-list">
-                    <li>
-                        <strong>Exit Options:</strong> Transitioning children out through Kinship Care, Foster Care, or Legal Adoption in full accordance with the Children's Department.
-                    </li>
-                    <li>
-                        <strong>Community Advocacy & Support:</strong> Tackling underlying social issues in the area like alcoholism, child abuse, negligence, prostitution, joblessness, and lack of shelter.
-                    </li>
-                    <li>
-                        <strong>Stakeholder Network:</strong> Collaborating with CBOs, NGOs, government departments, local churches, schools, hospitals, business leaders, and donors.
-                    </li>
-                </ul>
+                    <div class="need-item urgent">
+                        <h3>School Fees & Books <span class="badge-tag badge-urgent">High Priority</span></h3>
+                        <p>Stationery, uniforms, exercise books, and school fee support for our schooling children.</p>
+                    </div>
+
+                    <div class="need-item">
+                        <h3>Personal Hygiene & Care <span class="badge-tag badge-ongoing">Ongoing</span></h3>
+                        <p>Bathing soap, washing detergent, sanitary towels, toothpaste, and tissue paper.</p>
+                    </div>
+
+                    <div class="need-item">
+                        <h3>Bedding & Clothing <span class="badge-tag badge-ongoing">Ongoing</span></h3>
+                        <p>Bed sheets, blankets, mattresses, and clean clothes for boys and girls aged 0–18 years.</p>
+                    </div>
+
+                    <div class="need-item">
+                        <h3>Facility Maintenance & Upkeep <span class="badge-tag badge-ongoing">Ongoing</span></h3>
+                        <p>Electricity bills, water bills, medical care expenses, and general repairs for dormitories.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NEW SECTION: Success Stories -->
+        <section class="stories-section">
+            <div class="stories-header">
+                <h2>Transforming Lives: Success Stories</h2>
+                <p>See how your generous support transforms vulnerable lives into inspiring success stories.</p>
+            </div>
+
+            <div class="stories-grid">
+                
+                <!-- Story 1 -->
+                <div class="story-card">
+                    <div class="story-img-wrapper">
+                        <img src="images/story1.jpg" alt="From Rescue to High School Graduate" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none; color:#00ff66; font-size:3rem; font-weight:700;">🎓</div>
+                        <div class="story-badge">Education Success</div>
+                    </div>
+                    <div class="story-content">
+                        <h3 class="story-title">From Despair to Academic Excellence</h3>
+                        <div class="story-subtitle">Mercy's Journey</div>
+                        <p class="story-quote">
+                            "Soon Children's Home gave me a second chance when I thought all hope was lost. Today, I am pursuing my dream degree."
+                        </p>
+                        <p class="story-desc">
+                            Rescued from extreme vulnerability in Mwiki, Mercy received shelter, Christian counseling, and full academic sponsorship through Soon Children's Home. She recently graduated high school with top marks and enrolled in college.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="story-card">
+                    <div class="story-img-wrapper">
+                        <img src="images/story2.jpg" alt="Family Reunification" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none; color:#00ff66; font-size:3rem; font-weight:700;">👨‍👩‍👧</div>
+                        <div class="story-badge">Family Reunification</div>
+                    </div>
+                    <div class="story-content">
+                        <h3 class="story-title">Restoring Families Through Kinship Care</h3>
+                        <div class="story-subtitle">David's Reintegration</div>
+                        <p class="story-quote">
+                            "Through the home's kinship program, I was reunited with my family and given the guidance needed to thrive."
+                        </p>
+                        <p class="story-desc">
+                            After receiving emergency shelter and counseling, David's family situation was stabilized through our Community Exit Strategy. Today, David thrives under Kinship Care while continuing to receive educational mentorship from our team.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -736,6 +830,17 @@
     <!-- Footer -->
     <footer>
         <div class="footer-container">
+            
+            <!-- Footer Quick Navigation Links -->
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="proggrames and services.html">Programmes & Services</a></li>
+                <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
             <div class="footer-info">
                 <span><strong>Phone:</strong> +254 721 632 915</span>
                 <span>|</span>
