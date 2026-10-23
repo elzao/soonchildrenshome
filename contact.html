@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Soon Children's Home</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- Base & Color Palette Reset --- 
+           Colors:
+           - White: #ffffff / #f8f9fa
+           - Brick Red: #b22222
+           - Luminous Green: #00ff66
+           - Black / Dark Slate: #111111 / #1e1e1e
+        */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #111111;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px;
+            /* Space for fixed top header */
+        }
+
+        /* --- Background Overlay --- */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 240, 0.97) 100%);
+            z-index: -1;
+        }
+
+        /* --- Sticky Top Header Banner --- */
+        .top-header-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 99;
+            border-bottom: 3px solid #b22222;
+        }
+
+        .header-brand-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .header-logo-slot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #00ff66;
+            background-color: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .header-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            font-weight: 700;
+            color: #b22222;
+            letter-spacing: -0.3px;
+            text-transform: uppercase;
+        }
+
+        /* --- Floating Menu Toggle Button --- */
+        .menu-toggle-btn {
+            background-color: #111111;
+            color: #ffffff;
+            border: 2px solid #00ff66;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle-btn:hover {
+            background-color: #b22222;
+            border-color: #ffffff;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 18px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #00ff66;
+            border-radius: 2px;
+        }
+
+        /* --- Collapsible Vertical Sidebar Navigation --- */
+        .sidebar-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 290px;
+            height: 100%;
+            background-color: #111111;
+            color: #ffffff;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .drawer-close-btn:hover {
+            color: #00ff66;
+        }
+
+        .menu-logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem 0 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-logo-slot {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 3px solid #00ff66;
+            background-color: #ffffff;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .menu-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-brand-name {
+            font-family: 'Quicksand', sans-serif;
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.25s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #00ff66;
+            border-left-color: #b22222;
+            padding-left: 1.25rem;
+        }
+
+        .backdrop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .backdrop-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Main Layout Container --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem;
+            flex: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background-color: #ffffff;
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #b22222;
+        }
+
+        h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.8rem, 4.5vw, 2.75rem);
+            color: #b22222;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            color: #444444;
+            font-size: 1.05rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Two Column Grid (Contacts & Form) --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #b22222;
+        }
+
+        .contact-card.highlight {
+            border-top-color: #00ff66;
+        }
+
+        .contact-card h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: #b22222;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Contact Details Items */
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            background-color: #111111;
+            color: #00ff66;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-text h3 {
+            font-size: 1rem;
+            color: #111111;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-text p,
+        .contact-text a {
+            color: #555555;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-text a:hover {
+            color: #b22222;
+        }
+
+        /* Visiting Hours Table Box */
+        .visiting-hours-box {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-left: 4px solid #00ff66;
+        }
+
+        .visiting-hours-box h3 {
+            font-family: 'Quicksand', sans-serif;
+            color: #111111;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .hours-time {
+            color: #b22222;
+            font-weight: 600;
+        }
+
+        /* --- Inquiry Form --- */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #222222;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.25s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #b22222;
+            box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.1);
+        }
+
+        .submit-btn {
+            background-color: #111111;
+            color: #ffffff;
+            border: 2px solid #00ff66;
+            padding: 0.85rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background-color: #b22222;
+            border-color: #ffffff;
+        }
+
+        /* --- Google Maps Section --- */
+        .map-section {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 1.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #00ff66;
+        }
+
+        .map-section h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: #111111;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-iframe-container {
+            width: 100%;
+            height: 420px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: #111111;
+            color: #ffffff;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 4px solid #b22222;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 1.5rem;
+            color: #cccccc;
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        .footer-info span strong {
+            color: #00ff66;
+        }
+
+        .footer-copyright {
+            color: #888888;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 65px;
+            }
+
+            .top-header-banner {
+                height: 65px;
+                padding: 0 1rem;
+            }
+
+            .header-title {
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 1.5rem 0.85rem;
+            }
+
+            .contact-card {
+                padding: 1.25rem;
+            }
+
+            .map-iframe-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Canvas Overlay -->
+    <div class="bg-overlay"></div>
+
+    <!-- Sticky Top Header Banner -->
+    <header class="top-header-banner">
+        <a href="index.html" class="header-brand-container">
+            <div class="header-logo-slot">
+                <img src="images/logo.png" alt="Logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#00ff66; font-weight:bold; font-size:0.75rem;">SCH</span>
+            </div>
+            <span class="header-title">Soon Children's Home</span>
+        </a>
+
+        <button class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span>Menu</span>
+        </button>
+    </header>
+
+    <!-- Collapsible Vertical Sidebar Navigation Drawer -->
+    <div class="backdrop-overlay" id="backdrop-overlay"></div>
+    <aside class="sidebar-drawer" id="sidebar-drawer">
+        <button class="drawer-close-btn" id="drawer-close-btn" aria-label="Close Menu">&times;</button>
+
+        <div class="menu-logo-wrapper">
+            <div class="menu-logo-slot">
+                <img src="images/logo.png" alt="Soon Children's Home Logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#111111; font-weight:bold; font-size:1.2rem;">SCH</span>
+            </div>
+            <div class="menu-brand-name">SOON CHILDREN'S HOME</div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            
+            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
+               <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html" class="active">Contact Us</a></li>
+            
+        </ul>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <section class="section-header">
+            <h1>Contact Us & Visit</h1>
+            <p>We welcome donors, partners, guardians, and visitors. Get in touch or schedule a visit to Soon Children's
+                Home.</p>
+        </section>
+
+        <!-- Two Column Section -->
+        <div class="contact-grid">
+
+            <!-- Contact Info & Visiting Hours -->
+            <div class="contact-card">
+                <h2>Get In Touch</h2>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-text">
+                        <h3>Our Location</h3>
+                        <p>Mwiki, Kasarani, Nairobi, Kenya</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">
+                        <h3>Phone Contact</h3>
+                        <p><a href="tel:+254721632915">+254 721 632 915</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-text">
+                        <h3>Email Address</h3>
+                        <p><a href="mailto:karimikids02@gmail.com">karimikids02@gmail.com</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📮</div>
+                    <div class="contact-text">
+                        <h3>Postal Address</h3>
+                        <p>P.O. Box 8209-00100, Nairobi, Kenya</p>
+                    </div>
+                </div>
+
+                <!-- Visiting Hours Section -->
+                <div class="visiting-hours-box">
+                    <h3>🕒 Official Visiting Hours</h3>
+                    <div class="hours-row">
+                        <span class="hours-day">Saturdays & Sundays</span>
+                        <span class="hours-time">10:00 AM – 4:30 PM</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="hours-day">Public Holidays</span>
+                        <span class="hours-time">10:00 AM – 4:00 PM</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="hours-day">Weekdays (Mon – Fri)</span>
+                        <span class="hours-time">By Appointment Only</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="contact-card highlight">
+                <h2>Send Us A Message</h2>
+                <form class="contact-form" id="inquiryForm">
+                    <!-- Unpredictable Deceptive Honeypot (Off-screen CSS Obfuscation) -->
+                    <div class="field-offscreen" aria-hidden="true">
+                        <label for="fax_number_hp">Fax Number</label>
+                        <input type="text" id="fax_number_hp" name="fax_number_hp" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <!-- Hidden Time Tracking Timestamp -->
+                    <input type="hidden" id="_form_render_ts" name="_form_render_ts" value="">
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+254">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Purpose of Inquiry *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">-- Select Purpose --</option>
+                            <option value="Schedule a Visit">Schedule a Visit</option>
+                            <option value="Donations / Support">Donations / Support</option>
+                            <option value="Volunteering / Mentorship">Volunteering / Mentorship</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" name="message" rows="4"
+                            placeholder="Write your message or inquiry here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                </form>
+
+                <!-- Obfuscated Off-Screen CSS Class -->
+                <style>
+                    .field-offscreen {
+                        position: absolute !important;
+                        left: -9999px !important;
+                        top: -9999px !important;
+                        opacity: 0 !important;
+                        pointer-events: none !important;
+                        height: 0 !important;
+                        width: 0 !important;
+                    }
+                </style>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Google Maps Embed Section -->
+    <section class="map-section">
+        <h2>Find Us On Google Maps</h2>
+        <div class="map-iframe-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.82352818645!2d36.9083818!3d-1.2252195!2m3!1f0!f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3fcfa168a7b9%3A0x6b19a3b6ddae018f!2sMwiki%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                title="Soon Children's Home Google Map Location">
+            </iframe>
+        </div>
+    </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <span><strong>Phone:</strong> +254 721 632 915</span>
+                <span>|</span>
+                <span><strong>Email:</strong> karimikids02@gmail.com</span>
+                <span>|</span>
+                <span><strong>Location:</strong> Mwiki, Kasarani, Nairobi, Kenya</span>
+            </div>
+
+            <div class="footer-copyright">
+                <p>&copy; 2026 Soon Children's Home. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Drawer Script -->
+    <script>
+        const menuBtn = document.getElementById('menu-toggle-btn');
+        const closeBtn = document.getElementById('drawer-close-btn');
+        const drawer = document.getElementById('sidebar-drawer');
+        const backdrop = document.getElementById('backdrop-overlay');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        backdrop.addEventListener('click', closeDrawer);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                closeDrawer();
+            }
+        });
+    </script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzf1FPK3cZUjUa7BLWMuP4F_CIFq5vCr031zVC8L4WBorVXLk20T7bPB_4Ro2AIOVNzdw/exec'; // Replace with your deployed Web App URL
+        const form = document.getElementById('inquiryForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const renderTsField = document.getElementById('_form_render_ts');
+
+        // Set page render timestamp when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            if (renderTsField) {
+                renderTsField.value = new Date().getTime();
+            }
+        });
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            // Front-end unpredictable check: If honeypot is filled, abort silently
+            const honeypotVal = document.getElementById('fax_number_hp').value;
+            if (honeypotVal !== "") {
+                // Fake success response to confuse spammers
+                alert('Thank you! Your message has been received.');
+                form.reset();
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Sending...';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Thank you! Your message has been received and logged in our system.');
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Send Message';
+                    renderTsField.value = new Date().getTime(); // Reset timestamp
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('An error occurred while sending your message. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Send Message';
+                });
+        });
+    </script>
+
+</body>
+
+</html>

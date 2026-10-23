@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved & Donate - Soon Children's Home</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Base & Color Palette Reset --- 
+           Colors:
+           - White: #ffffff / #f8f9fa
+           - Brick Red: #b22222
+           - Luminous Green: #00ff66
+           - Black / Dark Slate: #111111 / #1e1e1e
+        */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #111111;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px; /* Space for fixed top header */
+        }
+
+        /* --- Background Canvas Overlay --- */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 240, 0.97) 100%);
+            z-index: -1;
+        }
+
+        /* --- Sticky Top Header Banner --- */
+        .top-header-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 99;
+            border-bottom: 3px solid #b22222;
+        }
+
+        .header-brand-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .header-logo-slot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #00ff66;
+            background-color: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .header-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            font-weight: 700;
+            color: #b22222;
+            letter-spacing: -0.3px;
+            text-transform: uppercase;
+        }
+
+        /* --- Floating Menu Toggle Button --- */
+        .menu-toggle-btn {
+            background-color: #111111;
+            color: #ffffff;
+            border: 2px solid #00ff66;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle-btn:hover {
+            background-color: #b22222;
+            border-color: #ffffff;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 18px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #00ff66;
+            border-radius: 2px;
+        }
+
+        /* --- Collapsible Vertical Sidebar Navigation --- */
+        .sidebar-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 290px;
+            height: 100%;
+            background-color: #111111;
+            color: #ffffff;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .drawer-close-btn:hover {
+            color: #00ff66;
+        }
+
+        .menu-logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem 0 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-logo-slot {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 3px solid #00ff66;
+            background-color: #ffffff;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .menu-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-brand-name {
+            font-family: 'Quicksand', sans-serif;
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.25s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #00ff66;
+            border-left-color: #b22222;
+            padding-left: 1.25rem;
+        }
+
+        .backdrop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .backdrop-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Main Layout Container --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem;
+            flex: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background-color: #ffffff;
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #b22222;
+        }
+
+        h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.8rem, 4.5vw, 2.75rem);
+            color: #b22222;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            color: #444444;
+            font-size: 1.05rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Side-by-Side Main Grid --- */
+        .donate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .donate-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #b22222;
+        }
+
+        .donate-card.highlight {
+            border-top-color: #00ff66;
+        }
+
+        .donate-card h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: #b22222;
+            font-size: 1.6rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Method Cards */
+        .method-box {
+            background-color: #f9f9f9;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            transition: all 0.25s ease;
+        }
+
+        .method-box:hover {
+            border-color: #00ff66;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .method-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .method-icon {
+            font-size: 1.5rem;
+        }
+
+        .method-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #111111;
+        }
+
+        .method-details p {
+            font-size: 0.93rem;
+            color: #444444;
+            margin-bottom: 0.35rem;
+        }
+
+        .method-details p strong {
+            color: #111111;
+        }
+
+        .highlight-badge {
+            background-color: #111111;
+            color: #00ff66;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        /* Needs List */
+        .needs-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .need-item {
+            background-color: #f8f9fa;
+            border-left: 4px solid #b22222;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        .need-item.urgent {
+            border-left-color: #00ff66;
+            background-color: #f0fff5;
+        }
+
+        .need-item h3 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            color: #111111;
+            margin-bottom: 0.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .need-item p {
+            font-size: 0.9rem;
+            color: #555555;
+        }
+
+        .badge-tag {
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-urgent {
+            background-color: #b22222;
+            color: #ffffff;
+        }
+
+        .badge-ongoing {
+            background-color: #111111;
+            color: #00ff66;
+        }
+
+        /* --- Success Stories Section --- */
+        .stories-section {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stories-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stories-header h2 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            color: #b22222;
+            text-transform: uppercase;
+        }
+
+        .stories-header p {
+            color: #555555;
+            font-size: 1rem;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .story-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #00ff66;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-img-wrapper {
+            width: 100%;
+            height: 220px;
+            background-color: #111111;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #111111;
+            color: #00ff66;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-content {
+            padding: 1.75rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.35rem;
+            color: #111111;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-subtitle {
+            color: #b22222;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .story-quote {
+            color: #444444;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+            border-left: 3px solid #00ff66;
+            padding-left: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-desc {
+            color: #555555;
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: #111111;
+            color: #ffffff;
+            padding: 2.5rem 1rem 1.5rem 1rem;
+            margin-top: 4rem;
+            border-top: 4px solid #b22222;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Footer Quick Links */
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.25rem;
+            width: 100%;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00ff66;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 1.5rem;
+            color: #cccccc;
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        .footer-info span strong {
+            color: #00ff66;
+        }
+
+        .footer-copyright {
+            color: #888888;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 65px;
+            }
+
+            .top-header-banner {
+                height: 65px;
+                padding: 0 1rem;
+            }
+
+            .header-title {
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 1.5rem 0.85rem;
+            }
+
+            .donate-card,
+            .story-content {
+                padding: 1.25rem;
+            }
+
+            .footer-links {
+                gap: 0.85rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Canvas Overlay -->
+    <div class="bg-overlay"></div>
+
+    <!-- Sticky Top Header Banner -->
+    <header class="top-header-banner">
+        <a href="index.html" class="header-brand-container">
+            <div class="header-logo-slot">
+                <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#00ff66; font-weight:bold; font-size:0.75rem;">SCH</span>
+            </div>
+            <span class="header-title">Soon Children's Home</span>
+        </a>
+
+        <button class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span>Menu</span>
+        </button>
+    </header>
+
+    <!-- Collapsible Vertical Sidebar Navigation Drawer -->
+    <div class="backdrop-overlay" id="backdrop-overlay"></div>
+    <aside class="sidebar-drawer" id="sidebar-drawer">
+        <button class="drawer-close-btn" id="drawer-close-btn" aria-label="Close Menu">&times;</button>
+        
+        <div class="menu-logo-wrapper">
+            <div class="menu-logo-slot">
+                <img src="images/logo.png" alt="Soon Children's Home Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#111111; font-weight:bold; font-size:1.2rem;">SCH</span>
+            </div>
+            <div class="menu-brand-name">SOON CHILDREN'S HOME</div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            
+            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
+              <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+
+        </ul>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <section class="section-header">
+            <h1>Get Involved & Support Us</h1>
+            <p>Your generosity helps us provide food, shelter, education, and hope to vulnerable children in Mwiki, Kasarani.</p>
+        </section>
+
+        <!-- Side-by-Side Grid: Ways to Give vs Immediate Needs -->
+        <div class="donate-grid">
+            
+            <!-- SECTION 1: Ways to Give -->
+            <div class="donate-card highlight">
+                <h2><span>🎁</span> Ways To Give</h2>
+
+                <!-- M-Pesa Option -->
+                <div class="method-box">
+                    <div class="method-header">
+                        <span class="method-icon">📱</span>
+                        <span class="method-title">M-Pesa Mobile Money</span>
+                    </div>
+                    <div class="method-details">
+                        <p><strong>Paybill / Till Number:</strong> <span class="highlight-badge">[Insert Paybill]</span></p>
+                        <p><strong>Account Name:</strong> Soon Children's Home</p>
+                        <p><strong>Phone Contact:</strong> +254 721 632 915</p>
+                    </div>
+                </div>
+
+                <!-- Bank Transfer Option -->
+                <div class="method-box">
+                    <div class="method-header">
+                        <span class="method-icon">🏦</span>
+                        <span class="method-title">Direct Bank Transfer</span>
+                    </div>
+                    <div class="method-details">
+                        <p><strong>Bank Name:</strong> [Insert Bank Name, e.g. Equity Bank]</p>
+                        <p><strong>Account Name:</strong> Soon Children's Home CBO</p>
+                        <p><strong>Account Number:</strong> [Insert Account Number]</p>
+                        <p><strong>Branch:</strong> Kasarani / Mwiki Branch</p>
+                    </div>
+                </div>
+
+                <!-- In-Kind Donations -->
+                <div class="method-box">
+                    <div class="method-header">
+                        <span class="method-icon">📦</span>
+                        <span class="method-title">In-Kind Supplies & Foodstuff</span>
+                    </div>
+                    <div class="method-details">
+                        <p>Drop off foodstuff, books, clothes, or stationery directly at our home in Mwiki, Kasarani during visiting hours.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Immediate Needs of the Home -->
+            <div class="donate-card">
+                <h2><span>📋</span> Immediate Needs Of The Home</h2>
+
+                <div class="needs-list">
+                    
+                    <div class="need-item urgent">
+                        <h3>Foodstuff & Daily Provisions <span class="badge-tag badge-urgent">High Priority</span></h3>
+                        <p>Maize flour, rice, beans, cooking oil, milk, and fresh vegetables for daily nutrition.</p>
+                    </div>
+
+                    <div class="need-item urgent">
+                        <h3>School Fees & Books <span class="badge-tag badge-urgent">High Priority</span></h3>
+                        <p>Stationery, uniforms, exercise books, and school fee support for our schooling children.</p>
+                    </div>
+
+                    <div class="need-item">
+                        <h3>Personal Hygiene & Care <span class="badge-tag badge-ongoing">Ongoing</span></h3>
+                        <p>Bathing soap, washing detergent, sanitary towels, toothpaste, and tissue paper.</p>
+                    </div>
+
+                    <div class="need-item">
+                        <h3>Bedding & Clothing <span class="badge-tag badge-ongoing">Ongoing</span></h3>
+                        <p>Bed sheets, blankets, mattresses, and clean clothes for boys and girls aged 0–18 years.</p>
+                    </div>
+
+                    <div class="need-item">
+                        <h3>Facility Maintenance & Upkeep <span class="badge-tag badge-ongoing">Ongoing</span></h3>
+                        <p>Electricity bills, water bills, medical care expenses, and general repairs for dormitories.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NEW SECTION: Success Stories -->
+        <section class="stories-section">
+            <div class="stories-header">
+                <h2>Transforming Lives: Success Stories</h2>
+                <p>See how your generous support transforms vulnerable lives into inspiring success stories.</p>
+            </div>
+
+            <div class="stories-grid">
+                
+                <!-- Story 1 -->
+                <div class="story-card">
+                    <div class="story-img-wrapper">
+                        <img src="images/story1.jpg" alt="From Rescue to High School Graduate" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none; color:#00ff66; font-size:3rem; font-weight:700;">🎓</div>
+                        <div class="story-badge">Education Success</div>
+                    </div>
+                    <div class="story-content">
+                        <h3 class="story-title">From Despair to Academic Excellence</h3>
+                        <div class="story-subtitle">Mercy's Journey</div>
+                        <p class="story-quote">
+                            "Soon Children's Home gave me a second chance when I thought all hope was lost. Today, I am pursuing my dream degree."
+                        </p>
+                        <p class="story-desc">
+                            Rescued from extreme vulnerability in Mwiki, Mercy received shelter, Christian counseling, and full academic sponsorship through Soon Children's Home. She recently graduated high school with top marks and enrolled in college.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="story-card">
+                    <div class="story-img-wrapper">
+                        <img src="images/story2.jpg" alt="Family Reunification" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none; color:#00ff66; font-size:3rem; font-weight:700;">👨‍👩‍👧</div>
+                        <div class="story-badge">Family Reunification</div>
+                    </div>
+                    <div class="story-content">
+                        <h3 class="story-title">Restoring Families Through Kinship Care</h3>
+                        <div class="story-subtitle">David's Reintegration</div>
+                        <p class="story-quote">
+                            "Through the home's kinship program, I was reunited with my family and given the guidance needed to thrive."
+                        </p>
+                        <p class="story-desc">
+                            After receiving emergency shelter and counseling, David's family situation was stabilized through our Community Exit Strategy. Today, David thrives under Kinship Care while continuing to receive educational mentorship from our team.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            
+            <!-- Footer Quick Navigation Links -->
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                
+            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
+                   <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                
+            </ul>
+
+            <div class="footer-info">
+                <span><strong>Phone:</strong> +254 721 632 915</span>
+                <span>|</span>
+                <span><strong>Email:</strong> karimikids02@gmail.com</span>
+                <span>|</span>
+                <span><strong>Location:</strong> Mwiki, Kasarani, Nairobi, Kenya</span>
+            </div>
+
+            <div class="footer-copyright">
+                <p>&copy; 2026 Soon Children's Home. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Drawer Script -->
+    <script>
+        const menuBtn = document.getElementById('menu-toggle-btn');
+        const closeBtn = document.getElementById('drawer-close-btn');
+        const drawer = document.getElementById('sidebar-drawer');
+        const backdrop = document.getElementById('backdrop-overlay');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        backdrop.addEventListener('click', closeDrawer);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                closeDrawer();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Soon Children's Home</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Base & Color Palette Reset --- 
+           Colors:
+           - White: #ffffff / #f8f9fa
+           - Brick Red: #b22222
+           - Luminous Green: #00ff66
+           - Black / Dark Slate: #111111 / #1e1e1e
+        */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #111111;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px; /* Space for fixed top header */
+        }
+
+        /* --- Background Slideshow --- */
+        .bg-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background-color: #111111;
+        }
+
+        .bg-slideshow li {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .bg-slideshow li.active {
+            opacity: 0.25; /* Dimmed background overlay */
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(240, 240, 240, 0.95) 100%);
+            z-index: -1;
+        }
+
+        /* --- Sticky Top Header Banner --- */
+        .top-header-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 99;
+            border-bottom: 3px solid #b22222;
+        }
+
+        .header-brand-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .header-logo-slot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #00ff66;
+            background-color: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .header-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            font-weight: 700;
+            color: #b22222;
+            letter-spacing: -0.3px;
+            text-transform: uppercase;
+        }
+
+        /* --- Floating Menu Toggle Button --- */
+        .menu-toggle-btn {
+            background-color: #111111;
+            color: #ffffff;
+            border: 2px solid #00ff66;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle-btn:hover {
+            background-color: #b22222;
+            border-color: #ffffff;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 18px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #00ff66;
+            border-radius: 2px;
+        }
+
+        /* --- Collapsible Vertical Sidebar Navigation --- */
+        .sidebar-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 290px;
+            height: 100%;
+            background-color: #111111;
+            color: #ffffff;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .drawer-close-btn:hover {
+            color: #00ff66;
+        }
+
+        .menu-logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem 0 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-logo-slot {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 3px solid #00ff66;
+            background-color: #ffffff;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .menu-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-brand-name {
+            font-family: 'Quicksand', sans-serif;
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.25s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #00ff66;
+            border-left-color: #b22222;
+            padding-left: 1.25rem;
+        }
+
+        .backdrop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .backdrop-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Main Layout Container --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem;
+            flex: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #b22222;
+        }
+
+        h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.8rem, 4.5vw, 2.75rem);
+            color: #b22222;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            color: #444444;
+            font-size: 1.05rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Key Stats / Metrics Grid (Population & Staff) --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 6px solid #b22222;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card.highlight {
+            border-top-color: #00ff66;
+            background: linear-gradient(to bottom, #ffffff 80%, #f0fff5 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #111111;
+            line-height: 1.1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #b22222;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-desc {
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        /* --- Content Block Cards --- */
+        .content-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid #b22222;
+        }
+
+        .content-card h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: #b22222;
+            font-size: 1.6rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+
+        /* --- Facilities Grid --- */
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .facility-item {
+            background-color: #f9f9f9;
+            border: 1px solid #e9e9e9;
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+
+        .facility-item:hover {
+            border-color: #00ff66;
+            background-color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .facility-item span {
+            display: block;
+            font-weight: 600;
+            color: #111111;
+            font-size: 0.95rem;
+        }
+
+        /* --- Policy List Styles --- */
+        .policy-subgroup {
+            margin-bottom: 2rem;
+        }
+
+        .policy-subgroup h3 {
+            font-size: 1.25rem;
+            color: #111111;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .policy-subgroup h3::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #00ff66;
+            border-radius: 50%;
+        }
+
+        .policy-list {
+            list-style: none;
+            padding-left: 0.5rem;
+        }
+
+        .policy-list li {
+            margin-bottom: 0.85rem;
+            position: relative;
+            padding-left: 1.75rem;
+            color: #333333;
+            font-size: 0.95rem;
+        }
+
+        .policy-list li::before {
+            content: "✓";
+            color: #b22222;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Process Steps Grid */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .step-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .step-num {
+            background-color: #111111;
+            color: #00ff66;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-weight: 600;
+            color: #222222;
+            font-size: 0.9rem;
+        }
+
+        /* --- Staff Profiles Grid --- */
+        .staff-section {
+            margin-top: 3rem;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .staff-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #eeeeee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .staff-img-wrapper {
+            width: 100%;
+            height: 220px;
+            background-color: #222222;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .staff-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .staff-placeholder-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: #333333;
+            border: 3px solid #00ff66;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .staff-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .staff-name {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.25rem;
+            color: #111111;
+            margin-bottom: 0.25rem;
+        }
+
+        .staff-role {
+            color: #b22222;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.85rem;
+        }
+
+        .staff-bio {
+            color: #555555;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: #111111;
+            color: #ffffff;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 4px solid #b22222;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 1.5rem;
+            color: #cccccc;
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        .footer-info span strong {
+            color: #00ff66;
+        }
+
+        .footer-copyright {
+            color: #888888;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* --- Mobile Responsive Rules --- */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 65px;
+            }
+
+            .top-header-banner {
+                height: 65px;
+                padding: 0 1rem;
+            }
+
+            .header-title {
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 1.5rem 0.85rem;
+            }
+
+            .content-card {
+                padding: 1.25rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Slideshow -->
+    <ul class="bg-slideshow">
+        <li class="active" style="background-image: url('images/bg1.jpg');"></li>
+        <li style="background-image: url('images/bg2.jpg');"></li>
+        <li style="background-image: url('images/bg3.jpg');"></li>
+    </ul>
+    <div class="bg-overlay"></div>
+
+    <!-- Sticky Top Header Banner -->
+    <header class="top-header-banner">
+        <a href="index.html" class="header-brand-container">
+            <div class="header-logo-slot">
+                <!-- Replace with extracted logo image file -->
+                <img src="pictures/Gemini_Generated_Image_l0itjkl0itjkl0it.jpg" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#00ff66; font-weight:bold; font-size:0.75rem;">SCH</span>
+            </div>
+            <span class="header-title">Soon Children's Home</span>
+        </a>
+
+        <button class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span>Menu</span>
+        </button>
+    </header>
+
+    <!-- Collapsible Vertical Sidebar Navigation Drawer -->
+    <div class="backdrop-overlay" id="backdrop-overlay"></div>
+    <aside class="sidebar-drawer" id="sidebar-drawer">
+        <button class="drawer-close-btn" id="drawer-close-btn" aria-label="Close Menu">&times;</button>
+        
+        <div class="menu-logo-wrapper">
+            <div class="menu-logo-slot">
+                <img src="pictures/Gemini_Generated_Image_l0itjkl0itjkl0it.jpg" alt="Soon Children's Home Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#111111; font-weight:bold; font-size:1.2rem;">SCH</span>
+            </div>
+            <div class="menu-brand-name">SOON CHILDREN'S HOME</div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About Us</a></li>
+            
+            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
+              <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+           
+              
+            <li><a href="gallery.html">Gallery</a></li>
+            
+            <li><a href="contact.html">Contact Us</a></li>
+            
+        </ul>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <section class="section-header">
+            <h1>About Soon Children's Home</h1>
+            <p>Dedicated to rescuing, protecting, and caring for vulnerable children in Mwiki, Kasarani since 1994.</p>
+        </section>
+
+        <!-- Key Stats / Overview Section (Population & Staff Cards) -->
+        <section class="stats-grid">
+            
+            <!-- Population Card -->
+            <div class="stat-card">
+                <div class="stat-icon">🏠</div>
+                <div class="stat-number">35</div>
+                <div class="stat-label">Home Capacity & Population</div>
+                <p class="stat-desc">
+                    Structured to accommodate and retain up to 35 children at a time in a safe, family-style sanctuary.
+                </p>
+            </div>
+
+            <!-- Staff Count Card -->
+            <div class="stat-card highlight">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number">3+</div>
+                <div class="stat-label">Dedicated Staff Team</div>
+                <p class="stat-desc">
+                    Committed caregivers, social workers, educators, and support personnel providing 24/7 holistic care.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Facilities & Infrastructure Section -->
+       
+        <!-- Our Staff Section -->
+        <section class="staff-section">
+            <div class="section-header" style="margin-bottom: 1.5rem; padding: 1.5rem;">
+                <h2 style="font-family: 'Quicksand', sans-serif; color: #b22222; font-size: 1.8rem;">Our Staff & Leadership Team</h2>
+                <p style="font-size: 0.95rem;">Meet the dedicated team working tirelessly behind the scenes at Soon Children's Home.</p>
+            </div>
+
+            <div class="staff-grid">
+                
+                <!-- Staff Card 1 -->
+                <div class="staff-card">
+                    <div class="staff-img-wrapper">
+                        <!-- Replace with actual staff photo -->
+                        <img src="images/staff1.jpg" alt="Lucy Karimi Mbugua" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="staff-placeholder-avatar" style="display:none;">LM</div>
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">Lucy Karimi Mbugua</h3>
+                        <div class="staff-role">Founder & Director</div>
+                        <p class="staff-bio">
+                            Founded Soon Children's Home in 1994. Spearheads administration, community outreach, and child rescue operations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Staff Card 2 -->
+                <div class="staff-card">
+                    <div class="staff-img-wrapper">
+                        <!-- Replace with actual staff photo -->
+                        <img src="images/staff2.jpg" alt="Social Worker Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="staff-placeholder-avatar" style="display:none;">SW</div>
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">[Staff Member Name]</h3>
+                        <div class="staff-role">Lead Social Worker</div>
+                        <p class="staff-bio">
+                            Manages child intake, legal documentation, counseling sessions, kinship reunification, and foster care placements.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Staff Card 3 -->
+                <div class="staff-card">
+                    <div class="staff-img-wrapper">
+                        <!-- Replace with actual staff photo -->
+                        <img src="images/staff3.jpg" alt="House Mother Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="staff-placeholder-avatar" style="display:none;">HM</div>
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">[Staff Member Name]</h3>
+                        <div class="staff-role">House Matron / Caregiver</div>
+                        <p class="staff-bio">
+                            Oversees daily care, nutrition, sanitation, dormitories, and the spiritual upbringing of the children.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <span><strong>Phone:</strong> +254 721 632 915</span>
+                <span>|</span>
+                <span><strong>Email:</strong> karimikids02@gmail.com</span>
+                <span>|</span>
+                <span><strong>Location:</strong> Mwiki, Kasarani, Nairobi, Kenya</span>
+            </div>
+
+            <div class="footer-copyright">
+                <p>&copy; 2026 Soon Children's Home. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Drawer Script -->
+    <script>
+        const menuBtn = document.getElementById('menu-toggle-btn');
+        const closeBtn = document.getElementById('drawer-close-btn');
+        const drawer = document.getElementById('sidebar-drawer');
+        const backdrop = document.getElementById('backdrop-overlay');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock background scrolling
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        backdrop.addEventListener('click', closeDrawer);
+
+        // Close on Escape key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                closeDrawer();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

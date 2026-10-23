@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Soon Children's Home</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Base & Color Palette Reset --- 
+           Colors:
+           - White: #ffffff / #f8f9fa
+           - Brick Red: #b22222
+           - Luminous Green: #00ff66
+           - Black / Dark Slate: #111111 / #1e1e1e
+        */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #111111;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px; /* Space for fixed top header */
+        }
+
+        /* --- Background Canvas Overlay --- */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 240, 0.97) 100%);
+            z-index: -1;
+        }
+
+        /* --- Sticky Top Header Banner --- */
+        .top-header-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 99;
+            border-bottom: 3px solid #b22222;
+        }
+
+        .header-brand-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .header-logo-slot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #00ff66;
+            background-color: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .header-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            font-weight: 700;
+            color: #b22222;
+            letter-spacing: -0.3px;
+            text-transform: uppercase;
+        }
+
+        /* --- Floating Menu Toggle Button --- */
+        .menu-toggle-btn {
+            background-color: #111111;
+            color: #ffffff;
+            border: 2px solid #00ff66;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle-btn:hover {
+            background-color: #b22222;
+            border-color: #ffffff;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 18px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #00ff66;
+            border-radius: 2px;
+        }
+
+        /* --- Collapsible Vertical Sidebar Navigation --- */
+        .sidebar-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 290px;
+            height: 100%;
+            background-color: #111111;
+            color: #ffffff;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .drawer-close-btn:hover {
+            color: #00ff66;
+        }
+
+        .menu-logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem 0 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-logo-slot {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 3px solid #00ff66;
+            background-color: #ffffff;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .menu-logo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-brand-name {
+            font-family: 'Quicksand', sans-serif;
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.25s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #00ff66;
+            border-left-color: #b22222;
+            padding-left: 1.25rem;
+        }
+
+        .backdrop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .backdrop-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Main Layout Container --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem;
+            flex: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background-color: #ffffff;
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #b22222;
+        }
+
+        h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.8rem, 4.5vw, 2.75rem);
+            color: #b22222;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            color: #444444;
+            font-size: 1.05rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- 15 Card Gallery Grid --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.75rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .gallery-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #b22222;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+            border-top-color: #00ff66;
+        }
+
+        .gallery-img-wrapper {
+            width: 100%;
+            height: 220px;
+            background-color: #111111;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-card:hover .gallery-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .img-fallback-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #00ff66;
+            gap: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .img-fallback-badge span.icon {
+            font-size: 2.5rem;
+        }
+
+        .img-fallback-badge span.label {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .card-category-tag {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: #111111;
+            color: #00ff66;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-content {
+            padding: 1.25rem 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.15rem;
+            color: #111111;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .gallery-explanation {
+            font-size: 0.9rem;
+            color: #555555;
+            line-height: 1.55;
+        }
+
+        /* --- Modal Lightbox --- */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-box {
+            background-color: #ffffff;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            position: relative;
+            border-top: 5px solid #00ff66;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            background: #111111;
+            color: #ffffff;
+            border: none;
+            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .lightbox-close:hover {
+            color: #00ff66;
+        }
+
+        .lightbox-img-holder {
+            width: 100%;
+            max-height: 420px;
+            background-color: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img-holder img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+        }
+
+        .lightbox-text-holder {
+            padding: 1.5rem;
+        }
+
+        .lightbox-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.4rem;
+            color: #b22222;
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-desc {
+            font-size: 0.95rem;
+            color: #444444;
+            line-height: 1.6;
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: #111111;
+            color: #ffffff;
+            padding: 2.5rem 1rem 1.5rem 1rem;
+            margin-top: 4rem;
+            border-top: 4px solid #b22222;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.25rem;
+            width: 100%;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00ff66;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 1.5rem;
+            color: #cccccc;
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        .footer-info span strong {
+            color: #00ff66;
+        }
+
+        .footer-copyright {
+            color: #888888;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 65px;
+            }
+
+            .top-header-banner {
+                height: 65px;
+                padding: 0 1rem;
+            }
+
+            .header-title {
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 1.5rem 0.85rem;
+            }
+
+            .gallery-content {
+                padding: 1rem;
+            }
+
+            .footer-links {
+                gap: 0.85rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Canvas Overlay -->
+    <div class="bg-overlay"></div>
+
+    <!-- Sticky Top Header Banner -->
+    <header class="top-header-banner">
+        <a href="index.html" class="header-brand-container">
+            <div class="header-logo-slot">
+                <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#00ff66; font-weight:bold; font-size:0.75rem;">SCH</span>
+            </div>
+            <span class="header-title">Soon Children's Home</span>
+        </a>
+
+        <button class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span>Menu</span>
+        </button>
+    </header>
+
+    <!-- Collapsible Vertical Sidebar Navigation Drawer -->
+    <div class="backdrop-overlay" id="backdrop-overlay"></div>
+    <aside class="sidebar-drawer" id="sidebar-drawer">
+        <button class="drawer-close-btn" id="drawer-close-btn" aria-label="Close Menu">&times;</button>
+        
+        <div class="menu-logo-wrapper">
+            <div class="menu-logo-slot">
+                <img src="images/logo.png" alt="Soon Children's Home Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; color:#111111; font-weight:bold; font-size:1.2rem;">SCH</span>
+            </div>
+            <div class="menu-brand-name">SOON CHILDREN'S HOME</div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
+              <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+           
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            
+        </ul>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <section class="section-header">
+            <h1>Photo Gallery</h1>
+            <p>Moments of joy, learning, community support, and daily life at Soon Children's Home in Mwiki, Kasarani.</p>
+        </section>
+
+        <!-- 15 Gallery Cards Grid -->
+        <div class="gallery-grid">
+            
+            <!-- Card 1 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery1.jpg', 'Warm Family Mealtime', 'Children and caregivers sharing a nutritious meal inside our dining hall, fostering togetherness and family bonds.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery1.jpg" alt="Warm Family Mealtime" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🍲</span><span class="label">Photo 01</span></div>
+                    <div class="card-category-tag">Nutrition</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Warm Family Mealtime</h3>
+                    <p class="gallery-explanation">Children and caregivers sharing a nutritious meal inside our dining hall, fostering togetherness and family bonds.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery2.jpg', 'Pre-School Classroom Learning', 'Interactive early childhood education session where children develop foundational reading and creative skills.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery2.jpg" alt="Pre-School Classroom Learning" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">✏️</span><span class="label">Photo 02</span></div>
+                    <div class="card-category-tag">Education</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Pre-School Classroom Learning</h3>
+                    <p class="gallery-explanation">Interactive early childhood education session where children develop foundational reading and creative skills.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery3.jpg', 'Outdoor Play & Recreation', 'Children enjoying recreational games on the playground, building confidence and healthy peer relationships.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery3.jpg" alt="Outdoor Play & Recreation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">⚽</span><span class="label">Photo 03</span></div>
+                    <div class="card-category-tag">Recreation</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Outdoor Play & Recreation</h3>
+                    <p class="gallery-explanation">Children enjoying recreational games on the playground, building confidence and healthy peer relationships.</p>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery4.jpg', 'Spiritual Mentorship & Prayer', 'Weekly Sunday fellowship and Christian guidance session helping children grow in faith, hope, and moral principles.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery4.jpg" alt="Spiritual Mentorship & Prayer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">✝️</span><span class="label">Photo 04</span></div>
+                    <div class="card-category-tag">Mentorship</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Spiritual Mentorship & Prayer</h3>
+                    <p class="gallery-explanation">Weekly Sunday fellowship and Christian guidance session helping children grow in faith, hope, and moral principles.</p>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery5.jpg', 'Library Study & Reading Time', 'Children utilizing our quiet leisure room and library to read storybooks and complete school assignments.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery5.jpg" alt="Library Study & Reading Time" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">📚</span><span class="label">Photo 05</span></div>
+                    <div class="card-category-tag">Education</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Library Study & Reading Time</h3>
+                    <p class="gallery-explanation">Children utilizing our quiet leisure room and library to read storybooks and complete school assignments.</p>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery6.jpg', 'Community Visitors & Donors', 'Well-wishers visiting Soon Children’s Home to donate essential food supplies, stationery, and clothes.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery6.jpg" alt="Community Visitors & Donors" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🎁</span><span class="label">Photo 06</span></div>
+                    <div class="card-category-tag">Community</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Community Visitors & Donors</h3>
+                    <p class="gallery-explanation">Well-wishers visiting Soon Children’s Home to donate essential food supplies, stationery, and clothes.</p>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery7.jpg', 'Clean & Safe Dormitories', 'A view of our clean, comfortable dormitory beds ensuring every child sleeps in safety and dignity.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery7.jpg" alt="Clean & Safe Dormitories" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🛏️</span><span class="label">Photo 07</span></div>
+                    <div class="card-category-tag">Facilities</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Clean & Safe Dormitories</h3>
+                    <p class="gallery-explanation">A view of our clean, comfortable dormitory beds ensuring every child sleeps in safety and dignity.</p>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery8.jpg', 'Empathetic Counseling Sessions', 'Professional one-on-one counseling following our 8-step behavior management and emotional support policy.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery8.jpg" alt="Empathetic Counseling Sessions" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">💬</span><span class="label">Photo 08</span></div>
+                    <div class="card-category-tag">Counseling</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Empathetic Counseling Sessions</h3>
+                    <p class="gallery-explanation">Professional one-on-one counseling following our 8-step behavior management and emotional support policy.</p>
+                </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery9.jpg', 'Art & Creativity Workshop', 'Expressive arts and crafts session encouraging talent development, emotional healing, and creativity.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery9.jpg" alt="Art & Creativity Workshop" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🎨</span><span class="label">Photo 09</span></div>
+                    <div class="card-category-tag">Talent</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Art & Creativity Workshop</h3>
+                    <p class="gallery-explanation">Expressive arts and crafts session encouraging talent development, emotional healing, and creativity.</p>
+                </div>
+            </div>
+
+            <!-- Card 10 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery10.jpg', 'Birthday & Milestone Celebrations', 'Joyous group birthday celebration giving every child a sense of love, importance, and family warmth.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery10.jpg" alt="Birthday & Milestone Celebrations" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🎂</span><span class="label">Photo 10</span></div>
+                    <div class="card-category-tag">Events</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Birthday & Milestone Celebrations</h3>
+                    <p class="gallery-explanation">Joyous group birthday celebration giving every child a sense of love, importance, and family warmth.</p>
+                </div>
+            </div>
+
+            <!-- Card 11 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery11.jpg', 'Health & Hygiene Days', 'Regular medical check-ups and personal hygiene training organized with healthcare volunteers.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery11.jpg" alt="Health & Hygiene Days" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🩺</span><span class="label">Photo 11</span></div>
+                    <div class="card-category-tag">Healthcare</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Health & Hygiene Days</h3>
+                    <p class="gallery-explanation">Regular medical check-ups and personal hygiene training organized with healthcare volunteers.</p>
+                </div>
+            </div>
+
+            <!-- Card 12 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery12.jpg', 'Music & Choir Rehearsals', 'Children learning songs and instrumental music for community performances and spiritual worship.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery12.jpg" alt="Music & Choir Rehearsals" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🎵</span><span class="label">Photo 12</span></div>
+                    <div class="card-category-tag">Talent</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Music & Choir Rehearsals</h3>
+                    <p class="gallery-explanation">Children learning songs and instrumental music for community performances and spiritual worship.</p>
+                </div>
+            </div>
+
+            <!-- Card 13 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery13.jpg', 'Family Reunification Success', 'A heart-warming milestone moment of a child being reunited with extended family through Kinship Care.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery13.jpg" alt="Family Reunification Success" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">👨‍👩‍👧</span><span class="label">Photo 13</span></div>
+                    <div class="card-category-tag">Reintegration</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Family Reunification Success</h3>
+                    <p class="gallery-explanation">A heart-warming milestone moment of a child being reunited with extended family through Kinship Care.</p>
+                </div>
+            </div>
+
+            <!-- Card 14 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery14.jpg', 'Kitchen & Food Preparation', 'Our kitchen staff preparing hygienic, balanced daily meals in compliance with dietary standards.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery14.jpg" alt="Kitchen & Food Preparation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🍳</span><span class="label">Photo 14</span></div>
+                    <div class="card-category-tag">Facilities</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Kitchen & Food Preparation</h3>
+                    <p class="gallery-explanation">Our kitchen staff preparing hygienic, balanced daily meals in compliance with dietary standards.</p>
+                </div>
+            </div>
+
+            <!-- Card 15 -->
+            <div class="gallery-card" onclick="openLightbox('images/gallery15.jpg', 'Holiday Outdoor Excursions', 'Educational and fun day trips exposing the children to nature, museums, and new learning environments.')">
+                <div class="gallery-img-wrapper">
+                    <img src="images/gallery15.jpg" alt="Holiday Outdoor Excursions" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback-badge" style="display:none;"><span class="icon">🚌</span><span class="label">Photo 15</span></div>
+                    <div class="card-category-tag">Outreach</div>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">Holiday Outdoor Excursions</h3>
+                    <p class="gallery-explanation">Educational and fun day trips exposing the children to nature, museums, and new learning environments.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Lightbox Modal Preview -->
+    <div class="lightbox-modal" id="lightbox-modal">
+        <div class="lightbox-box">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <div class="lightbox-img-holder">
+                <img id="modal-img" src="" alt="Preview">
+            </div>
+            <div class="lightbox-text-holder">
+                <h3 class="lightbox-title" id="modal-title"></h3>
+                <p class="lightbox-desc" id="modal-desc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+               <li><a href="proggrames and services.html">Programmes & Services.</a></li>
+              <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+           
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                
+            </ul>
+
+            <div class="footer-info">
+                <span><strong>Phone:</strong> +254 721 632 915</span>
+                <span>|</span>
+                <span><strong>Email:</strong> karimikids02@gmail.com</span>
+                <span>|</span>
+                <span><strong>Location:</strong> Mwiki, Kasarani, Nairobi, Kenya</span>
+            </div>
+
+            <div class="footer-copyright">
+                <p>&copy; 2026 Soon Children's Home. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Navigation Drawer Script
+        const menuBtn = document.getElementById('menu-toggle-btn');
+        const closeBtn = document.getElementById('drawer-close-btn');
+        const drawer = document.getElementById('sidebar-drawer');
+        const backdrop = document.getElementById('backdrop-overlay');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        backdrop.addEventListener('click', closeDrawer);
+
+        // Lightbox Script
+        const modal = document.getElementById('lightbox-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+
+        function openLightbox(src, title, desc) {
+            modalImg.src = src;
+            modalTitle.innerText = title;
+            modalDesc.innerText = desc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDrawer();
+                closeLightbox();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
