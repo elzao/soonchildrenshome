@@ -375,139 +375,6 @@
             color: #666666;
         }
 
-        /* --- Content Block Cards --- */
-        .content-card {
-            background-color: #ffffff;
-            border-radius: 14px;
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-            border-left: 6px solid #b22222;
-        }
-
-        .content-card h2 {
-            font-family: 'Quicksand', sans-serif;
-            color: #b22222;
-            font-size: 1.6rem;
-            margin-bottom: 1.25rem;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 0.5rem;
-        }
-
-        /* --- Facilities Grid --- */
-        .facilities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.25rem;
-            margin-top: 1rem;
-        }
-
-        .facility-item {
-            background-color: #f9f9f9;
-            border: 1px solid #e9e9e9;
-            border-radius: 10px;
-            padding: 1.25rem;
-            text-align: center;
-            transition: all 0.25s ease;
-        }
-
-        .facility-item:hover {
-            border-color: #00ff66;
-            background-color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .facility-item span {
-            display: block;
-            font-weight: 600;
-            color: #111111;
-            font-size: 0.95rem;
-        }
-
-        /* --- Policy List Styles --- */
-        .policy-subgroup {
-            margin-bottom: 2rem;
-        }
-
-        .policy-subgroup h3 {
-            font-size: 1.25rem;
-            color: #111111;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .policy-subgroup h3::before {
-            content: "";
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: #00ff66;
-            border-radius: 50%;
-        }
-
-        .policy-list {
-            list-style: none;
-            padding-left: 0.5rem;
-        }
-
-        .policy-list li {
-            margin-bottom: 0.85rem;
-            position: relative;
-            padding-left: 1.75rem;
-            color: #333333;
-            font-size: 0.95rem;
-        }
-
-        .policy-list li::before {
-            content: "✓";
-            color: #b22222;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        /* Process Steps Grid */
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .step-box {
-            background-color: #f8f9fa;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .step-num {
-            background-color: #111111;
-            color: #00ff66;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .step-text {
-            font-weight: 600;
-            color: #222222;
-            font-size: 0.9rem;
-        }
-
         /* --- Staff Profiles Grid --- */
         .staff-section {
             margin-top: 3rem;
@@ -600,7 +467,7 @@
         footer {
             background-color: #111111;
             color: #ffffff;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem 1.5rem 1rem;
             margin-top: 4rem;
             border-top: 4px solid #b22222;
         }
@@ -611,7 +478,31 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1.5rem;
+        }
+
+        /* Footer Quick Links */
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.25rem;
+            width: 100%;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00ff66;
         }
 
         .footer-info {
@@ -653,12 +544,8 @@
                 padding: 1.5rem 0.85rem;
             }
 
-            .content-card {
-                padding: 1.25rem;
-            }
-
-            .process-steps {
-                grid-template-columns: 1fr;
+            .footer-links {
+                gap: 0.85rem 1.25rem;
             }
         }
     </style>
@@ -678,7 +565,6 @@
     <header class="top-header-banner">
         <a href="index.html" class="header-brand-container">
             <div class="header-logo-slot">
-                <!-- Replace with extracted logo image file -->
                 <img src="pictures/Gemini_Generated_Image_l0itjkl0itjkl0it.jpg" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <span style="display:none; color:#00ff66; font-weight:bold; font-size:0.75rem;">SCH</span>
             </div>
@@ -711,15 +597,10 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html" class="active">About Us</a></li>
-            
-            <li><a href="proggrames and services.html">Programmes & Services.</a></li>
-              <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
-           
-              
+            <li><a href="proggrames and services.html">Programmes & Services</a></li>
+            <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
             <li><a href="gallery.html">Gallery</a></li>
-            
             <li><a href="contact.html">Contact Us</a></li>
-            
         </ul>
     </aside>
 
@@ -756,8 +637,6 @@
 
         </section>
 
-        <!-- Facilities & Infrastructure Section -->
-       
         <!-- Our Staff Section -->
         <section class="staff-section">
             <div class="section-header" style="margin-bottom: 1.5rem; padding: 1.5rem;">
@@ -770,7 +649,6 @@
                 <!-- Staff Card 1 -->
                 <div class="staff-card">
                     <div class="staff-img-wrapper">
-                        <!-- Replace with actual staff photo -->
                         <img src="images/staff1.jpg" alt="Lucy Karimi Mbugua" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="staff-placeholder-avatar" style="display:none;">LM</div>
                     </div>
@@ -786,7 +664,6 @@
                 <!-- Staff Card 2 -->
                 <div class="staff-card">
                     <div class="staff-img-wrapper">
-                        <!-- Replace with actual staff photo -->
                         <img src="images/staff2.jpg" alt="Social Worker Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="staff-placeholder-avatar" style="display:none;">SW</div>
                     </div>
@@ -802,7 +679,6 @@
                 <!-- Staff Card 3 -->
                 <div class="staff-card">
                     <div class="staff-img-wrapper">
-                        <!-- Replace with actual staff photo -->
                         <img src="images/staff3.jpg" alt="House Mother Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="staff-placeholder-avatar" style="display:none;">HM</div>
                     </div>
@@ -823,6 +699,17 @@
     <!-- Footer -->
     <footer>
         <div class="footer-container">
+            
+            <!-- Footer Quick Navigation Links -->
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="proggrames and services.html">Programmes & Services</a></li>
+                <li><a href="get involved &donate.html">Get Involved & Donate</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
             <div class="footer-info">
                 <span><strong>Phone:</strong> +254 721 632 915</span>
                 <span>|</span>
@@ -847,7 +734,7 @@
         function openDrawer() {
             drawer.classList.add('open');
             backdrop.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Lock background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeDrawer() {
@@ -860,7 +747,6 @@
         closeBtn.addEventListener('click', closeDrawer);
         backdrop.addEventListener('click', closeDrawer);
 
-        // Close on Escape key press
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && drawer.classList.contains('open')) {
                 closeDrawer();
